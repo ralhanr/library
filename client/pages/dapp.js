@@ -17,7 +17,8 @@ class Dapp extends React.Component {
     loading_librarian: false,
     loading_book: false,
     newBook: undefined,
-    bookAddress: undefined
+    bookAddress: undefined,
+    totalBooks: undefined
   };
 
   onLibChange = (event) => {
@@ -36,12 +37,16 @@ class Dapp extends React.Component {
     this.setState({bookAddress: event.target.value})
   }
 
-
   getOwner = async () => {
     const { accounts, contract } = this.props
-    //console.log(accounts[0]);
     const response = await contract.methods.owner().call({ from: accounts[0] })
     this.setState({ owner: response })
+  };
+
+  getTotalBooks = async () => {
+    const { accounts, contract } = this.props
+    const response = await contract.methods.showTotalBooks().call({ from: accounts[0] })
+    this.setState({ totalBooks: response })
   };
 
   addLibrarian = async (event) => {
@@ -49,15 +54,12 @@ class Dapp extends React.Component {
     this.setState({loading_librarian: true, errorMessage: ''});
   try{
     const { accounts, contract } = this.props
-    console.log(this.state.librarian);
-    console.log(this.state.libAddress);
-    console.log(this.state.owner);
     await contract.methods.addLibrarian(this.state.librarian, this.state.libAddress).send({ from: this.state.owner })
   }
   catch(err) {
-  this.setState({errorMessage: err.message})
+    this.setState({errorMessage: err.message})
   }
-  this.setState({loading_librarian: false});
+    this.setState({loading_librarian: false});
   }
 
   removeLibrarian = async () => {
@@ -74,28 +76,26 @@ class Dapp extends React.Component {
     this.setState({loading_book: true, errorMessageBook: ''});
   try{
     const { accounts, contract } = this.props
-    console.log(this.state.newBook);
-    console.log(this.state.bookAddress);
-    console.log(this.state.libAddress)
     await contract.methods.addBook(this.state.newBook, this.state.bookAddress).send({ from: this.state.libAddress })
   }
   catch(err) {
-  this.setState({errorMessageBook: err.message})
+    this.setState({errorMessageBook: err.message})
   }
-  this.setState({loading_book: false});
+    this.setState({loading_book: false});
   }
 
-  getEthBalance = async () => {
-    const { web3, accounts } = this.props
-    const balanceInWei = await web3.eth.getBalance(accounts[0])
-    this.setState({ ethBalance: balanceInWei / 1e18 })
-  };
 
   render () {
     const { balance = 'N/A', ethBalance = 'N/A', owner = 'N/A'} = this.state
     return (
       <div>
-      <Layout><br /> <br />
+      <Layout>
+      <div> <br /> <br />
+        <Link href='/'>
+          <a><h3>Back To Home</h3></a>
+        </Link>
+      </div>
+      <br />
         <h1>{`Rachna's Library`}</h1>
         <hr />
 
@@ -104,7 +104,7 @@ class Dapp extends React.Component {
       <Button primary type='submit'>Who is the Owner?</Button>
     </Form>
     <br />
-      <div>Library Owner: {this.state.owner}</div>
+      <div><h3>Library Owner: {this.state.owner}</h3></div>
     <br />
     <hr />
     <br />
@@ -113,12 +113,14 @@ class Dapp extends React.Component {
       <Form.Field>
         <label>Name of the Librarian</label>
         <Input
-        labelPosition='right'
+        labelPosition='left' label='Enter Name of the Librarian'
         value={this.state.librarian}
         onChange = {this.onLibChange}
         />
+        <br />
+        <br />
         <Input
-        labelPosition='right'
+        labelPosition='left' label='Librarian Address(from metamask)'
         value={this.state.libAddress}
         onChange = {this.onAddressChange}
         />
@@ -134,12 +136,14 @@ class Dapp extends React.Component {
   <Form.Field>
     <label>Name of the Book</label>
     <Input
-    labelPosition='right'
+    labelPosition='left' label="Enter New Book Title"
     value={this.state.newBook}
     onChange = {this.onBookChange}
     />
+    <br />
+    <br />
     <Input
-    labelPosition='right'
+    labelPosition='left' label="Book Owner Address(from metamask)"
     value={this.state.bookAddress}
     onChange = {this.onBookAddressChange}
     />
@@ -151,12 +155,15 @@ class Dapp extends React.Component {
 <hr />
 <br />
 
-
-        <div>
-          <Link href='/'>
-            <a>Back To Home</a>
-          </Link>
-        </div>
+<h3>Get Total Books in {`Rachna's`} Library</h3>
+<Form onSubmit={this.getTotalBooks}>
+<Button primary type='submit'>Total Books</Button>
+</Form>
+<br />
+<div><h3>Total Books Available: {this.state.totalBooks}</h3></div>
+<br />
+<hr />
+<br />
         </Layout>
       </div>
     )

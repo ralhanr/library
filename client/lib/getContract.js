@@ -3,7 +3,6 @@ const getContractInstance = async (web3, contractDefinition) => {
   // get network ID and the deployed address
   const networkId = await web3.eth.net.getId()
  const deployedAddress = contractDefinition.networks[networkId].address
-//  const deployedAddress = contractDefinition.networks[config.chainId].address
 
   console.log(deployedAddress);
 //    const deployedAddress = '0x222bA0c2a491A55F5aAF5eAc58D1c98fb1236E21'

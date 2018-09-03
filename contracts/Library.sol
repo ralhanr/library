@@ -28,9 +28,6 @@ contract Library {
         bytes32 [] damageRepair;
     }
 
-    struct damageRepair {
-        string bookName;
-    }
 
    Librarian[] public librarians;
    string [] totalBooks;
@@ -46,21 +43,6 @@ contract Library {
         owner = msg.sender;
     }
 
-  function removeBook(string bookName, address bookOwner) public {
-       require(mapLibrarian[msg.sender] == true);
-       require(bookHistory[bookName].validBook == true);
-       require(books[bookName].checkedIn == true);
-        books[bookName].checkedIn = false;
-        bookHistory[bookName].validBook = false;
-        books[bookName].exists = false;
-       for(uint i=0; i<allCurrentBooks.length; i++) {
-            if(allCurrentBooks[i].bookOwner == bookOwner) {
-                allCurrentBooks[i] = allCurrentBooks[allCurrentBooks.length-1];
-                delete allCurrentBooks[allCurrentBooks.length-1];
-                allCurrentBooks.length--;
-            }
-        }
-    }
 
     function addLibrarian (string libName, address libAddress) public {
         require(msg.sender == owner);
@@ -108,6 +90,21 @@ contract Library {
         allCurrentBooks.push(bookN);
     }
 
+    function removeBook(string bookName, address bookOwner) public {
+         require(mapLibrarian[msg.sender] == true);
+         require(bookHistory[bookName].validBook == true);
+         require(books[bookName].checkedIn == true);
+          books[bookName].checkedIn = false;
+          bookHistory[bookName].validBook = false;
+          books[bookName].exists = false;
+         for(uint i=0; i<allCurrentBooks.length; i++) {
+              if(allCurrentBooks[i].bookOwner == bookOwner) {
+                  allCurrentBooks[i] = allCurrentBooks[allCurrentBooks.length-1];
+                  delete allCurrentBooks[allCurrentBooks.length-1];
+                  allCurrentBooks.length--;
+              }
+          }
+      }
 
   function showTotalBooks() public view returns (uint) {
       return totalBooks.length;
@@ -145,12 +142,12 @@ contract Library {
         bookHistory[tradeInBook].validBook = true;
     }
 
-     function damageRepairHistory (string bookName, bytes32 data) public {
+     function addDamageRepairHistory (string bookName, bytes32 data) public {
         require(mapLibrarian[msg.sender] == true);
         bookHistory[bookName].damageRepair.push(data);
     }
 
-    function damageRepairHistoryShow (string bookName) public view returns (bytes32 []) {
+    function showDamageRepairHistory (string bookName) public view returns (bytes32 []) {
         require(mapLibrarian[msg.sender] == true);
         return bookHistory[bookName].damageRepair;
     }
