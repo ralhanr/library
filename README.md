@@ -1,4 +1,4 @@
-# library DAPP
+# Library DAPP
 
 STEP 1
 
@@ -16,13 +16,14 @@ Inside the 'library' directory, go to 'client' directory.
 
 STEP 4:
 
-1) Open 2 Terminal/Console windows.
-2) The first terminal window will be used to run the Ethereum node by Truffle and the second window will be used to run the front end of the DAPP application.
+1) Open Two Terminal/Console windows.
+2) The first terminal window will be used to run the Ethereum node by Truffle.
+3) The second window will be used to run the front end of the DAPP application.
 
 STEP 5:
 
-1) In one of the windows, run 'TRUFFLE DEVELOP'   (This will start your local network at http://127.0.0.1:9545)
-2) This window will give you bunch of testing accounts on this private network.
+1) In one of the windows, run 'TRUFFLE DEVELOP'   (This will start your local ethereum network at http://127.0.0.1:9545)
+2) This window will list your Testing Accounts on this private network.
 3) We will come back later and use one of this accounts and import it into Metamask.
 
 STEP 6
@@ -45,19 +46,13 @@ Setting up Metamask
 
 1) Make sure Metamask chrome extension is installed and you are logged into Metamask.
 2) Now we need to connect our Metamask to our locally running Truffle Private Network.
-3) Go to Metamask settings, and enter http://127.0.0.1:9545 in the 'New RPC Url' tab and hot save.
+3) Go to Metamask settings, and enter http://127.0.0.1:9545 in the 'New RPC Url' tab and hit save.
 4) Now to run transactions, we need to add one of our Truffle accounts to Metamask.
 5) To do this, go to 'Import Account' in Metamask and enter your first account's private key here and hit save.
 6) This will add Truffle account in your Metamask account, hence we can run transactions now.
+7) Front End Application should now be up and running.  
 
 STEP 9
-
-From truffle develop window (from step 2)
-
-1) Import first account's key using 'Import account' in metamask
-2) Front end application should now be up and running.  
-
-STEP 10
 
 The following functions have been implemented:
 
@@ -69,10 +64,16 @@ The following functions have been implemented:
 
 Notes:
 
-1) You can also paste the Solidity code from the library.sol file in https://remix.ethereum.org and run using:
+1) You can also paste the Solidity code from the Library.sol file at https://remix.ethereum.org and run using:
 
   - Javascript VM
 
-  - Injected Web3, and connect to Rinkeby. I have deployed the contract to Rinkeby. You can load it using Contract address 0xdcF691120f17B9A0D46F8778Ad56E53C2E04831C
+  - Injected Web3, and connect to Rinkeby. I have deployed the contract to Rinkeby. You can load it using Contract Deployed Address 0xdcF691120f17B9A0D46F8778Ad56E53C2E04831C
 
   - You can also connect Remix to your local Truffle running node by using 'Web3 Provider' and connect to http://localhost:9545 (This is where your private node is running from STEP 5 above).
+
+2) This DAPP has been tested on MAC OS.
+
+3) All functions and features are working fine and have been tested completely using various platforms, like Remix, Desktop Ethereum Wallet and the Front End Application.
+
+4) Randomly, Metamask might give a 'NONCE different' error when running a transaction. Go to Metamask Settings, and 'Reset Account'. This solves this issue.
