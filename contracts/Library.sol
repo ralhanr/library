@@ -1,7 +1,13 @@
 pragma solidity ^0.4.23;
 //pragma experimental ABIEncoderV2;
 
-contract Library {
+import "../client/node_modules/zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
+
+contract Library is MintableToken{
+
+    string public constant name = "Library Token";
+    string public constant symbol = "RR";
+    uint8 public constant decimals = 18;
 
     struct Librarian {
         string libName;

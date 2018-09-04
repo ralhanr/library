@@ -32,7 +32,7 @@ In the second terminal window, run:
 
 1) NPM INSTALL
 2) TRUFFLE COMPILE
-3) TRUFFLE MIGRATE
+3) TRUFFLE MIGRATE  (this will deploy to your local Truffle network). To deploy to RINKEBY, use TRUFFLE MIGRATE --NETWORK RINKEBY.
 4) TRUFFLE TEST  (10 unit tests have been written. These should all be passing).
 4) NPM RUN DEV   (This will start your localhost for front end application at port 3000)
 
@@ -68,7 +68,7 @@ Notes:
 
   - Javascript VM
 
-  - Injected Web3, and connect to Rinkeby. I have deployed the contract to Rinkeby. You can load it using Contract Deployed Address 0xdcF691120f17B9A0D46F8778Ad56E53C2E04831C
+  - Injected Web3, and connect to Rinkeby. I have deployed the contract to Rinkeby. You can load it using Contract Deployed Address 0xdcF691120f17B9A0D46F8778Ad56E53C2E04831C.
 
   - You can also connect Remix to your local Truffle running node by using 'Web3 Provider' and connect to http://localhost:9545 (This is where your private node is running from STEP 5 above).
 
@@ -77,3 +77,7 @@ Notes:
 3) All functions and features are working fine and have been tested completely using various platforms, like Remix, Desktop Ethereum Wallet and the Front End Application.
 
 4) Randomly, Metamask might give a 'NONCE different' error when running a transaction. Go to Metamask Settings, and 'Reset Account'. This solves this issue.
+
+5) Library Token has also been created using OpenZeppelin.
+
+6) This Library Token has been deployed to Rinkeby at address 0x4c43920fbbe48714642bb99f1f400b2107f31002. An Infura node has been used to deploy on the Rinkeby Network.
