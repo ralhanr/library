@@ -49,6 +49,7 @@ contract Library is MintableToken{
         owner = msg.sender;
     }
 
+// Add a New Librarian (Only the Owner can perform this function using librarian name and address).
 
     function addLibrarian (string libName, address libAddress) public {
         require(msg.sender == owner);
@@ -60,6 +61,8 @@ contract Library is MintableToken{
         librarians.push(newLibrarian);
         mapLibrarian[libAddress] = true;
     }
+
+//  Remove a Librarian (Only the Owner can perform this function using librarian address).
 
     function removeLibrarian(address libAddress) public {
         require(msg.sender == owner);
@@ -73,6 +76,9 @@ contract Library is MintableToken{
             }
         }
     }
+
+
+//  Add a New Book (Only a librarian can perform this function using book name and book address).
 
     function addBook(string bookName, address bookOwner) public {
         require(mapLibrarian[msg.sender] == true);
@@ -96,6 +102,9 @@ contract Library is MintableToken{
         allCurrentBooks.push(bookN);
     }
 
+
+//  Remove a Book (Only a librarian can perform this function using book name and book address).
+
     function removeBook(string bookName, address bookOwner) public {
          require(mapLibrarian[msg.sender] == true);
          require(bookHistory[bookName].validBook == true);
@@ -113,9 +122,14 @@ contract Library is MintableToken{
           }
       }
 
-  function showTotalBooks() public view returns (uint) {
+//  Get total number of books in the Library.
+
+    function showTotalBooks() public view returns (uint) {
       return totalBooks.length;
    }
+
+//  Check out a book (Only the librarian can perform this function using a checkout address,
+//  provided the book is valid and has been chcked in before).
 
     function checkInBook(string bookName) public {
         require(bookHistory[bookName].validBook == true);
@@ -126,6 +140,8 @@ contract Library is MintableToken{
         books[bookName].checkedIn = true;
     }
 
+//  Check in a book (anyone can check in a book, provided that book was checked out to that address previously).
+
     function checkOutBook(string bookName, address checkOutAddress) public {
         require(mapLibrarian[msg.sender] == true);
         require(bookHistory[bookName].validBook == true);
@@ -134,6 +150,8 @@ contract Library is MintableToken{
         books[bookName].checkedIn = false;
 
     }
+
+//  Trade a Book with another book (Only the book owner can do this using new owner's address).
 
     function tradeBook(string tradeInBook, string tradeWithBook, address newOwner) public {
         require(books[tradeInBook].bookOwner == msg.sender);
@@ -149,15 +167,23 @@ contract Library is MintableToken{
         bookHistory[tradeInBook].validBook = true;
     }
 
+//   Add Damage/Repair History to an existing book. (Only librarian can do this).
+
      function addDamageRepairHistory (string bookName, bytes32 data) public {
         require(mapLibrarian[msg.sender] == true);
         bookHistory[bookName].damageRepair.push(data);
     }
 
+//  Check Damage/Repair History for an existing book (Anyone can do this using the book name).
+
     function showDamageRepairHistory (string bookName) public view returns (bytes32 []) {
         require(mapLibrarian[msg.sender] == true);
         return bookHistory[bookName].damageRepair;
     }
+
+
+//  Show Book History (shows original owner, check in and check out hisory.
+//  Anyone can do this using a valid existing book's name).
 
     function trackBookHistory(string bookName) public view returns (address []) {
 

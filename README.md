@@ -1,5 +1,20 @@
 # Library DAPP
 
+The following functions have been implemented and tested in this Smart Contract:
+
+1) Create a Smart Contract, and add token minting capability.
+2) Add a New Librarian (Only the Owner can perform this function using librarian name and address).
+3) Remove a Librarian (Only the Owner can perform this function using librarian address).
+4) Add a New Book (Only a librarian can perform this function using book name and book address).
+5) Remove a Book (Only a librarian can perform this function using book name and book address).
+6) Get total number of books in the Library.
+7) Check out a book (Only the librarian can perform this function using a checkout address).
+8) Check in a book (anyone can check in a book, provided that book was checked out to that address previously).
+9) Trade a Book with another book (Only the book owner can do this using new owner's address).
+10) Add Damage/Repair History to an existing book. (Only librarian can do this).
+11) Check Damage/Repair History for an existing book (Anyone can do this using the book name).
+12) Show Book History (shows original owner, check in and check out hisory. Anyone can do this using a valid existing book's name).
+
 STEP 1
 
 Git clone https://github.com/ralhanr/library.git
@@ -32,7 +47,7 @@ In the second terminal window, run:
 
 1) NPM INSTALL
 2) TRUFFLE COMPILE
-3) TRUFFLE MIGRATE  (this will deploy to your local Truffle network). To deploy to RINKEBY, use TRUFFLE MIGRATE --NETWORK RINKEBY.
+3) TRUFFLE MIGRATE --RESET (this will deploy to your local Truffle network). To deploy to RINKEBY, use TRUFFLE MIGRATE --NETWORK RINKEBY --RESET.
 4) TRUFFLE TEST  (10 unit tests have been written. These should all be passing).
 4) NPM RUN DEV   (This will start your localhost for front end application at port 3000)
 
@@ -54,7 +69,7 @@ Setting up Metamask
 
 STEP 9
 
-The following functions have been implemented:
+The following functions have been implemented on the Front End of this DAPP:
 
 1) Get the Library Owner
 2) Add a New Librarian
