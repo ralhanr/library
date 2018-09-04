@@ -102,6 +102,7 @@ contract Library {
                   allCurrentBooks[i] = allCurrentBooks[allCurrentBooks.length-1];
                   delete allCurrentBooks[allCurrentBooks.length-1];
                   allCurrentBooks.length--;
+                  totalBooks.length--;
               }
           }
       }
